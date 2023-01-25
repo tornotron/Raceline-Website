@@ -1,0 +1,20 @@
+on: 
+push:
+  branches:
+    - staging
+name: 🚀 Deploy website on push
+jobs:
+web-deploy:
+  name: 🎉 Deploy
+  runs-on: ubuntu-latest
+  steps:
+  - name: 🚚 Get latest code
+    uses: actions/checkout@v2
+
+  - name: 📂 Sync files
+    uses: SamKirkland/FTP-Deploy-Action@4.3.0
+    with:
+      server: ${{ secrets.ftp_server }}
+      username: ${{ secrets.ftp_username }}
+      password: ${{ secrets.ftp_password }}
+      server-dir: /staging.racelinetechnologies.com/
